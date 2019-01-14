@@ -61,11 +61,11 @@ php-soap \
 php-ldap \
 php-apcu \
 php-redis \
-php-smbclient \
+php-smbclient && \
 /bin/ln -sf /etc/environment /etc/default/php-fpm7.2 && \
 apt-get clean && \
 apt -y autoremove && \
-apt -y autoclean
+apt -y autoclean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 VOLUME ["/mnt/data"]
