@@ -3,7 +3,7 @@ then
   return
 fi
 
-export EDITOR="vim"
+export EDITOR="vi"
 export PAGER="less"
 export CLICOLOR="1"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
@@ -22,7 +22,6 @@ complete -c command type which
 complete -d cd
 complete -cf sudo
 
-alias vi="vim"
 alias ls="ls --color=auto"
 alias lsa="ls -lahi"
 alias l="ls -la"
@@ -32,6 +31,34 @@ alias ...="cd ../.."
 alias grep="grep --color=auto"
 alias rgrep="grep -rn"
 alias history="fc -l 1"
+
+export ls_colors="--color=auto"
+export time_style="--time-style=long-iso"
+alias tf='command tail -f'
+alias path='echo export PATH=$PATH'
+alias fpath='echo export FPATH=$FPATH'
+alias lpath='echo export LD_LIBRARY_PATH=$LD_LIBRARY_PATH'
+alias ppath='echo $PATH | tr ":" "\n" | sort'
+alias pfpath='echo $FPATH | tr ":" "\n" | sort'
+alias plpath='echo $LD_LIBRARY_PATH | tr ":" "\n" | sort'
+
+alias ll='ls -Alq -F ${ls_colors} ${time_style}'
+alias lld='ls -Aldq -F ${ls_colors} ${time_style}'
+alias lrt='ls -lArtq -F ${ls_colors} ${time_style}'
+alias lrtd='ls -lArtdq -F ${ls_colors} ${time_style}'
+alias lrth='ls -lArtq -F ${ls_colors} ${time_style}|head -20'
+alias lrtt='ls -lArtq -F ${ls_colors} ${time_style}|tail -20'
+alias lla='ls -lAq -F ${ls_colors} ${time_style}'
+alias lrta='ls -lrtAq -F ${ls_colors} ${time_style}'
+
+alias htrestart='. /etc/entrypoint.d/99-apache.sh;apachectl restart'
+alias phprestart='/etc/owncloud.d/46-php-fpm.sh'
+alias htlogs='tf /var/log/apache2/*'
+alias nglogs='tf /var/log/nginx/*'
+alias ngreload='nginx -t && service nginx reload'
+
+alias ving='vi /etc/nginx/nginx.conf'
+alias videf='vi /etc/nginx/sites-available/default'
 
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
   function command_not_found_handle {
