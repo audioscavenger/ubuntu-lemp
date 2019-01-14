@@ -23,8 +23,8 @@ apt-transport-https \
 iputils-ping \
 bzip2 \
 unzip \
-cron &&
-apt-get clean &&
+cron && \
+apt-get clean && \
 /bin/ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 
