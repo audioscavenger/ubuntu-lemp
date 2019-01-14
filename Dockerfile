@@ -12,60 +12,62 @@ ENV TERM xterm
 RUN apt-get update -y && \
 apt-get upgrade -y && \
 apt-get install -y \
+apt-utils \
+apt-transport-https \
+iputils-ping \
+bzip2 \
+unzip \
 ca-certificates \
 bash \
 nvi \
 curl \
 wget \
 procps \
-apt-utils \
-apt-transport-https \
-iputils-ping \
-bzip2 \
-unzip \
 cron && \
 apt-get clean && \
 /bin/ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 
-# RUN apt-get install -y \
-# git-core \
-# sshpass \
-# smbclient \
-# openssl \
-# nginx-extras \
-# geoip-database \
-# libgeoip1 \
-# php-apcu \
-# php-fpm \
-# php-gd \
-# php-json \
-# php-mysql \
-# php-sqlite3 \
-# php-pgsql \
-# php-curl \
-# php-intl \
-# php-imagick \
-# php-zip \
-# php-xml \
-# php-mbstring \
-# php-soap \
-# php-ldap \
-# php-apcu \
-# php-redis \
-# php-smbclient \
-# smbclient \
-# patch \
-# mysql-client \
-# postgresql-client \
-# sqlite && \
-# apt-get clean && \
-# /bin/ln -sf /etc/environment /etc/default/php-fpm7.2 && \
-# rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get install -y \
+git-core \
+patch \
+sshpass \
+openssl \
+smbclient \
+mysql-client \
+postgresql-client \
+sqlite && \
+apt-get clean
 
 
-# apt -y autoremove && \
-# apt -y autoclean
+RUN apt-get install -y \
+nginx-extras \
+geoip-database \
+libgeoip1 \
+php-apcu \
+php-fpm \
+php-gd \
+php-json \
+php-mysql \
+php-sqlite3 \
+php-pgsql \
+php-curl \
+php-intl \
+php-imagick \
+php-zip \
+php-xml \
+php-mbstring \
+php-soap \
+php-ldap \
+php-apcu \
+php-redis \
+php-smbclient \
+/bin/ln -sf /etc/environment /etc/default/php-fpm7.2 && \
+apt-get clean && \
+apt -y autoremove && \
+apt -y autoclean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+VOLUME ["/mnt/data"]
 ADD rootfs /
 CMD ["sleep", "999"]
