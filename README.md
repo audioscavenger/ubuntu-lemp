@@ -32,7 +32,7 @@ ENV TERM xterm
 
 ## Issues, Feedback and Ideas
 
-Open an [Issue](https://github.com/owncloud-docker/ubuntu/issues)
+Open an [Issue](https://github.com/audioscavenger/ubuntu-lemp/issues)
 
 
 ## Contributing
