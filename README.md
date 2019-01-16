@@ -8,7 +8,7 @@ This is a minimal (540MB) customized [Ubuntu](http://www.ubuntu.com/) base image
 
 ## Versions
 
-To get an overview about the available versions please take a look at the [GitHub branches](https://github.com/owncloud-docker/ubuntu/branches/all) or our [Docker Hub tags](https://hub.docker.com/r/owncloud/ubuntu/tags/), these lists are always up to date.
+o get an overview about the available versions please take a look at the [GitHub branches](https://github.com/audioscavenger/ubuntu-lemp/branches/all) or our [Docker Hub tags](https://cloud.docker.com/repository/docker/audioscavenger/ubuntu-lemp/tags), these lists are always up to date.
 
 
 ## Volumes
