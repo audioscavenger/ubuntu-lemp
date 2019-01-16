@@ -22,6 +22,7 @@ apt-get clean && \
 
 
 RUN apt-get install -y \
+software-properties-common \
 ca-certificates \
 bash \
 nvi \
