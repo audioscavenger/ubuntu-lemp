@@ -16,19 +16,20 @@ apt-utils \
 apt-transport-https \
 iputils-ping \
 bzip2 \
-unzip \
+unzip && \
+apt-get clean && \
+/bin/ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+
+
+RUN apt-get install -y \
 ca-certificates \
 bash \
 nvi \
 curl \
 wget \
 procps \
-cron && \
-apt-get clean && \
-/bin/ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-
-
-RUN apt-get install -y \
+cron \
+sudo \
 git-core \
 patch \
 sshpass \
