@@ -13,7 +13,7 @@ To get an overview about the available versions please take a look at the [GitHu
 
 ## Volumes
 
-* None
+* VOLUME ["/mnt/data"]
 
 
 ## Ports
@@ -24,7 +24,9 @@ To get an overview about the available versions please take a look at the [GitHu
 ## Available environment variables
 
 ```
-
+ARG TAG=latest
+ENV DEBIAN_FRONTEND noninteractive
+ENV TERM xterm
 ```
 
 
@@ -38,7 +40,7 @@ Open an [Issue](https://github.com/owncloud-docker/ubuntu/issues)
 Fork -> Patch -> Push -> Pull Request
 
 
-## Authors
+## Forked from: Authors
 
 * [Thomas Boerger](https://github.com/tboerger)
 * [Felix Boehm](https://github.com/felixboehm)
@@ -46,11 +48,11 @@ Fork -> Patch -> Push -> Pull Request
 
 ## License
 
-MIT
+GNU v3.0
 
 
 ## Copyright
 
 ```
-Copyright (c) 2018 Thomas Boerger <tboerger@owncloud.com>
+Copyright (c) 2019 Eric Derewonko <dev@derewonko.com>
 ```
