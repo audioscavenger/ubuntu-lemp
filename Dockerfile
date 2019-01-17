@@ -89,7 +89,7 @@ ADD https://github.com/hairyhenderson/gomplate/releases/download/v3.1.0/gomplate
 ADD https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64 /usr/bin/su-exec
 
 RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
-&& rm dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
+&& rm /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
 && /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec /root/.bashrc /etc/bash.bashrc /etc/inputrc
 
 
