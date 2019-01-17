@@ -33,6 +33,7 @@ cron \
 sudo \
 git-core \
 patch \
+gpgv \
 sshpass \
 openssl \
 smbclient \
