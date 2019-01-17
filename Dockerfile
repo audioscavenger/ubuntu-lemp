@@ -72,6 +72,10 @@ php-smbclient \
 && apt -y autoclean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+
+VOLUME ["/mnt/data"]
+ADD rootfs /
+
 # wait-for-it Use this script to test if a given TCP host/port are available
 ADD https://raw.githubusercontent.com/audioscavenger/wait-for-it/master/wait-for-it.sh /usr/bin/wait-for-it
 
@@ -87,9 +91,7 @@ ADD https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64 /usr/bin/su
 RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
 && tar -C /usr/bin -xzvf /tmp/su-exec-v0.2.tar.gz \
 && rm dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
-&& /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec
+&& /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec /root/.bashrc /etc/bash.bashrc /etc/inputrc
 
 
-VOLUME ["/mnt/data"]
-ADD rootfs /
 CMD ["sleep", "999"]
