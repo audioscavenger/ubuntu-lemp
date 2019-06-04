@@ -27,6 +27,8 @@ o get an overview about the available versions please take a look at the [GitHub
 ARG TAG=latest
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
+ENV DOCKERIZE_VERSION v0.6.1
+ENV TZ=America/New_York
 ```
 
 
@@ -56,3 +58,10 @@ GNU v3.0
 ```
 Copyright (c) 2019 Eric Derewonko <dev@derewonko.com>
 ```
+
+## Dependencies
+
+See dockerfile for more details
+
+* docker image ubuntu:latest
+* jwilder/dockerize v0.6.1

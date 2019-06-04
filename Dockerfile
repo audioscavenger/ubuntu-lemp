@@ -9,6 +9,7 @@ LABEL maintainer="audioscavenger <dev@derewonko.com>" \
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
 ENV DOCKERIZE_VERSION v0.6.1
+ENV TZ=America/New_York
 
 RUN apt-get update -y \
 && apt-get upgrade -y \
@@ -19,11 +20,12 @@ iputils-ping \
 bzip2 \
 unzip \
 && apt-get clean \
-&& /bin/ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+&& /bin/ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
 
 RUN apt-get install -y \
 software-properties-common \
+net-tools \
 ca-certificates \
 bash \
 nvi \
@@ -92,5 +94,7 @@ RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz
 && rm /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
 && /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec /root/.bashrc /etc/bash.bashrc /etc/inputrc
 
-
-CMD ["sleep", "999"]
+# sleeping 15mn just to be able to connect is useless, use the attach command:
+# sudo docker attach ubuntu-lemp
+# sudo docker exec -i -t ubuntu-lemp /bin/bash
+# CMD ["sleep", "999"]
