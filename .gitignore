@@ -1,4 +1,10 @@
+*.tar.bz2
+*.tar.bz2.asc
+*.tar.gz
+*.swp
+
 rootfs/usr/bin/dockerize
 rootfs/usr/bin/wait-for-it
 rootfs/usr/bin/gomplate
 rootfs/usr/bin/su-exec
+.vagrant/

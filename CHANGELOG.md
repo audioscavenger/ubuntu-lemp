@@ -1,5 +1,16 @@
 # Changelog
 
+## 2019-06-09
+
+* Changed
+  * use ENV for version downloads
+  * created ARG UBUNTU_VERSION=latest
+  * ENV PHP_VERSION for scripting automation
+  * use apt-get only to avoid useless terminal warnings
+  * rearranged RUN commands order and content for optimized install speed
+* Removed
+  * move DEBIAN_FRONTEND=noninteractive in RUN
+
 ## 2018-10-08
 
 * Changed

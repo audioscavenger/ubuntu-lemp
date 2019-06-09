@@ -3,12 +3,11 @@ ARG UBUNTU_VERSION=latest
 FROM ubuntu:${UBUNTU_VERSION}
 ARG UBUNTU_VERSION
 
-ENV UBUNTU_VERSION ${UBUNTU_VERSION:-latest} \
+ENV UBUNTU_VERSION=${UBUNTU_VERSION:-latest} \
     PHP_VERSION=7.2 \
     DOCKERIZE_VERSION=v0.6.1 \
     GOMPLATE_VERSION=v3.5.0 \
     SUEXEC_VERSION="1.11" \
-    DEBIAN_FRONTEND=noninteractive \
     TERM=xterm \
     TZ=America/New_York \
     LANG=C
@@ -19,14 +18,15 @@ LABEL maintainer="audioscavenger <dev@derewonko.com>" \
   org.label-schema.schema-version="1.0"
 
 
-RUN apt-get update -y \
-&& apt-get upgrade -y \
-&& apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq \
+&& apt-get install -yq --no-install-recommends \
 apt-utils \
+&& apt-get -yq clean \
 && /bin/ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
 
 
-RUN apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -yq \
+&& apt-get install -yq --no-install-recommends \
 apt-transport-https \
 iputils-ping \
 bzip2 \
@@ -46,15 +46,17 @@ patch \
 gpgv \
 sshpass \
 openssl \
+ssl-cert \
 smbclient \
 mysql-client \
 postgresql-client \
 geoip-database \
 libgeoip1 \
-sqlite
+sqlite \
+&& apt-get -yq clean
 
 
-RUN apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 nginx-extras \
 php${PHP_VERSION} \
 php-apcu \
@@ -79,9 +81,9 @@ php-soap \
 php-sqlite3 \
 php-xml \
 php-zip \
-&& apt-get clean \
-&& apt -y autoremove \
-&& apt -y autoclean \
+&& apt-get -yq clean \
+&& apt-get -yq autoremove \
+&& apt-get -yq autoclean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 VOLUME ["/mnt/data"]
@@ -94,7 +96,7 @@ COPY rootfs/ /
 ADD https://raw.githubusercontent.com/audioscavenger/wait-for-it/master/wait-for-it.sh /usr/bin/wait-for-it
 
 # dockerize Utility to simplify running applications in docker containers
-ADD https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz
+ADD https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz /tmp/dockerize-linux-amd64.tar.gz
 
 # gomplate Process text files with Go templates
 ADD https://github.com/hairyhenderson/gomplate/releases/download/${GOMPLATE_VERSION}/gomplate_linux-amd64-slim /usr/bin/gomplate
@@ -103,8 +105,8 @@ ADD https://github.com/hairyhenderson/gomplate/releases/download/${GOMPLATE_VERS
 ADD https://github.com/tianon/gosu/releases/download/${SUEXEC_VERSION}/gosu-amd64 /usr/bin/su-exec
 
 # post-config & optimizations
-RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
-&& rm /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
+RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64.tar.gz \
+&& rm /tmp/dockerize-linux-amd64.tar.gz \
 && /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec /root/.bashrc /etc/bash.bashrc /etc/inputrc \
 && /bin/ln -sf /etc/environment /etc/default/php-fpm7.2
 

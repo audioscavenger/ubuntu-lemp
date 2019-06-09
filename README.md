@@ -64,7 +64,6 @@ ENV DOCKERIZE_VERSION v0.6.1
 ENV GOMPLATE_VERSION v3.5.0
 ENV SUEXEC_VERSION "1.11"
 
-ENV DEBIAN_FRONTEND noninteractive
 ENV TERM xterm
 ENV TZ America/New_York
 ENV LANG C
@@ -94,6 +93,8 @@ Fork -> Patch -> Push -> Pull Request
 - [x] ENV DOCKERIZE_VERSION
 - [x] ENV GOMPLATE_VERSION
 - [x] ENV SUEXEC_VERSION
+- [x] move DEBIAN_FRONTEND=noninteractive in RUN
+- [x] use apt-get only to avoid useless terminal warnings
 
 
 ## License
