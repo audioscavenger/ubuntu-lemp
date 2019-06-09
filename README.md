@@ -3,13 +3,18 @@
 [![Build Status](https://drone.owncloud.com/api/badges/owncloud-docker/ubuntu/status.svg)](https://drone.owncloud.com/owncloud-docker/ubuntu)
 [![](https://images.microbadger.com/badges/image/owncloud/ubuntu:latest.svg)](https://microbadger.com/images/owncloud/ubuntu:latest "Get your own image badge on microbadger.com")
 
-This is a minimal (581MB) customized [Ubuntu](http://www.ubuntu.com/) base image based on [official Ubuntu](https://registry.hub.docker.com/_/ubuntu/) latest + Nginx-extras + PHP7.2-FPM. It's used as a Docker image base for other projects.
+This is a minimal (520MB) customized [Ubuntu](http://www.ubuntu.com/) base image based on [official Ubuntu](https://registry.hub.docker.com/_/ubuntu/) latest + Nginx-extras + PHP7.2-FPM. It's used as a Docker image base for other projects.
 
 
 ## Versions
 
-o get an overview about the available versions please take a look at the [GitHub branches](https://github.com/audioscavenger/ubuntu-lemp/branches/all) or our [Docker Hub tags](https://cloud.docker.com/repository/docker/audioscavenger/ubuntu-lemp/tags), these lists are always up to date.
+To get an overview about the available versions please take a look at the [GitHub branches](https://github.com/audioscavenger/ubuntu-lemp/branches/all) or our [Docker Hub tags](https://cloud.docker.com/repository/docker/audioscavenger/ubuntu-lemp/tags), these lists are always up to date.
 
+# Features
+
+## Optimized
+- build speed
+- build size: 520MB
 
 ## Content
 - BASE docker/ubuntu <-- ubuntu:18.04
