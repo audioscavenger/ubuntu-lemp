@@ -1,15 +1,22 @@
-ARG TAG=latest
-FROM ubuntu:${TAG:-latest}
+## https://docs.docker.com/engine/reference/builder/
+ARG UBUNTU_VERSION=latest
+ENV UBUNTU_VERSION ${UBUNTU_VERSION:-latest}
+FROM ubuntu:${UBUNTU_VERSION}
+
+ENV DOCKERIZE_VERSION v0.6.1
+ENV GOMPLATE_VERSION v3.5.0
+ENV SUEXEC_VERSION "1.11"
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV TERM xterm
+ENV TZ America/New_York
+ENV LANG C
 
 LABEL maintainer="audioscavenger <dev@derewonko.com>" \
   org.label-schema.name="Ubuntu-LEMP" \
   org.label-schema.vendor="lesmoules" \
   org.label-schema.schema-version="1.0"
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV TERM xterm
-ENV DOCKERIZE_VERSION v0.6.1
-ENV TZ=America/New_York
 
 RUN apt-get update -y \
 && apt-get upgrade -y \
@@ -85,10 +92,10 @@ ADD https://raw.githubusercontent.com/audioscavenger/wait-for-it/master/wait-for
 ADD https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz
 
 # gomplate Process text files with Go templates
-ADD https://github.com/hairyhenderson/gomplate/releases/download/v3.1.0/gomplate_linux-amd64-slim /usr/bin/gomplate
+ADD https://github.com/hairyhenderson/gomplate/releases/download/${GOMPLATE_VERSION}/gomplate_linux-amd64-slim /usr/bin/gomplate
 
 # su-exec is a very minimal re-write of gosu in C, making for a much smaller binary; however we actually install gosu because we are too lazy to compile su-exec
-ADD https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64 /usr/bin/su-exec
+ADD https://github.com/tianon/gosu/releases/download/${SUEXEC_VERSION}/gosu-amd64 /usr/bin/su-exec
 
 RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
 && rm /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
