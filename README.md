@@ -53,7 +53,6 @@ docker build --build-arg UBUNTU_VERSION=19.x -t owncloud-lemp:ubuntu-19.x .
 ## Build Environment Variables
 ```
 ARG UBUNTU_VERSION=latest
-ENV UBUNTU_VERSION ${UBUNTU_VERSION:-latest}
 
 ENV DOCKERIZE_VERSION v0.6.1
 ENV GOMPLATE_VERSION v3.5.0
