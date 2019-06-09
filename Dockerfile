@@ -4,14 +4,13 @@ FROM ubuntu:${UBUNTU_VERSION}
 ARG UBUNTU_VERSION
 
 ENV UBUNTU_VERSION ${UBUNTU_VERSION:-latest}
-ENV DOCKERIZE_VERSION v0.6.1
-ENV GOMPLATE_VERSION v3.5.0
-ENV SUEXEC_VERSION "1.11"
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV TERM xterm
-ENV TZ America/New_York
-ENV LANG C
+ENV DOCKERIZE_VERSION=v0.6.1 \
+    GOMPLATE_VERSION=v3.5.0 \
+    SUEXEC_VERSION="1.11" \
+    DEBIAN_FRONTEND=noninteractive \
+    TERM=xterm \
+    TZ=America/New_York \
+    LANG=C
 
 LABEL maintainer="audioscavenger <dev@derewonko.com>" \
   org.label-schema.name="Ubuntu-LEMP" \
@@ -21,17 +20,16 @@ LABEL maintainer="audioscavenger <dev@derewonko.com>" \
 
 RUN apt-get update -y \
 && apt-get upgrade -y \
-&& apt-get install -y \
+&& apt-get install -y --no-install-recommends \
 apt-utils \
+&& /bin/ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
+
+
+RUN apt-get install -y --no-install-recommends \
 apt-transport-https \
 iputils-ping \
 bzip2 \
 unzip \
-&& apt-get clean \
-&& /bin/ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
-
-
-RUN apt-get install -y \
 software-properties-common \
 net-tools \
 ca-certificates \
@@ -50,11 +48,10 @@ openssl \
 smbclient \
 mysql-client \
 postgresql-client \
-sqlite \
-&& apt-get clean
+sqlite
 
 
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
 nginx-extras \
 geoip-database \
 libgeoip1 \
