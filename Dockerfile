@@ -3,8 +3,9 @@ ARG UBUNTU_VERSION=latest
 FROM ubuntu:${UBUNTU_VERSION}
 ARG UBUNTU_VERSION
 
-ENV UBUNTU_VERSION ${UBUNTU_VERSION:-latest}
-ENV DOCKERIZE_VERSION=v0.6.1 \
+ENV UBUNTU_VERSION ${UBUNTU_VERSION:-latest} \
+    PHP_VERSION=7.2 \
+    DOCKERIZE_VERSION=v0.6.1 \
     GOMPLATE_VERSION=v3.5.0 \
     SUEXEC_VERSION="1.11" \
     DEBIAN_FRONTEND=noninteractive \
@@ -48,40 +49,46 @@ openssl \
 smbclient \
 mysql-client \
 postgresql-client \
+geoip-database \
+libgeoip1 \
 sqlite
 
 
 RUN apt-get install -y --no-install-recommends \
 nginx-extras \
-geoip-database \
-libgeoip1 \
+php${PHP_VERSION} \
 php-apcu \
+php-cli \
+php-common \
+php-curl \
 php-fpm \
 php-gd \
-php-json \
-php-mysql \
-php-sqlite3 \
-php-pgsql \
-php-curl \
-php-intl \
 php-imagick \
-php-zip \
-php-xml \
-php-mbstring \
-php-soap \
+php-intl \
+php-json \
 php-ldap \
-php-apcu \
+php-mbstring \
+php-mysql \
+php-opcache \
+php-pgsql \
+php-phpdbg \
+php-readline \
 php-redis \
 php-smbclient \
-&& /bin/ln -sf /etc/environment /etc/default/php-fpm7.2 \
+php-soap \
+php-sqlite3 \
+php-xml \
+php-zip \
 && apt-get clean \
 && apt -y autoremove \
 && apt -y autoclean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
 VOLUME ["/mnt/data"]
-ADD rootfs /
+
+# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+# ADD rootfs /
+COPY rootfs/ /
 
 # wait-for-it Use this script to test if a given TCP host/port are available
 ADD https://raw.githubusercontent.com/audioscavenger/wait-for-it/master/wait-for-it.sh /usr/bin/wait-for-it
@@ -95,9 +102,11 @@ ADD https://github.com/hairyhenderson/gomplate/releases/download/${GOMPLATE_VERS
 # su-exec is a very minimal re-write of gosu in C, making for a much smaller binary; however we actually install gosu because we are too lazy to compile su-exec
 ADD https://github.com/tianon/gosu/releases/download/${SUEXEC_VERSION}/gosu-amd64 /usr/bin/su-exec
 
+# post-config & optimizations
 RUN tar -C /usr/bin -xzvf /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
 && rm /tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
-&& /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec /root/.bashrc /etc/bash.bashrc /etc/inputrc
+&& /bin/chmod 755 /usr/bin/gomplate /usr/bin/wait-for-it /usr/bin/dockerize /usr/bin/su-exec /root/.bashrc /etc/bash.bashrc /etc/inputrc \
+&& /bin/ln -sf /etc/environment /etc/default/php-fpm7.2
 
 # sleeping 15mn just to be able to connect is useless, use the attach command:
 # sudo docker attach ubuntu-lemp

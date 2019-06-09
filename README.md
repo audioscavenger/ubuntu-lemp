@@ -45,20 +45,21 @@ docker build .
 ```
 
 ## build with Specific versions
-* Example 1: build with custom tag using GOMPLATE_VERSION _v3.1.0_:
+* Example 1: build with custom tag _test-rc1_ using GOMPLATE_VERSION _v3.1.0_:
 ```
 docker build -e GOMPLATE_VERSION=v3.1.0 -t owncloud-lemp:test-rc1 .
 ```
 
-* Example 2: build with custom tag using a different version FROM ubuntu _19.x_ instead of _latest_:
+* Example 2: build with custom tag _19.04-7.3_ using a different version FROM ubuntu _19.x_ and PHP:
 ```
-docker build --build-arg UBUNTU_VERSION=19.x -t owncloud-lemp:ubuntu-19.x .
+docker build --build-arg UBUNTU_VERSION=19.04 -e PHP_VERSION=7.3 -t owncloud-lemp:19.04-7.3 .
 ```
 
 ## Build Environment Variables
 ```
 ARG UBUNTU_VERSION=latest
 
+ENV PHP_VERSION 7.2
 ENV DOCKERIZE_VERSION v0.6.1
 ENV GOMPLATE_VERSION v3.5.0
 ENV SUEXEC_VERSION "1.11"
@@ -84,6 +85,15 @@ Fork -> Patch -> Push -> Pull Request
 
 * [Thomas Boerger](https://github.com/tboerger)
 * [Felix Boehm](https://github.com/felixboehm)
+
+# Notes
+
+## Todo List
+
+- [x] ENV PHP_VERSION
+- [x] ENV DOCKERIZE_VERSION
+- [x] ENV GOMPLATE_VERSION
+- [x] ENV SUEXEC_VERSION
 
 
 ## License
